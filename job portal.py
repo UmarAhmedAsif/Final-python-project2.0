@@ -1,3 +1,4 @@
+import streamlit as st
 def main():
 st.title("Job Portal")
 # Add image
