@@ -1,5 +1,5 @@
 import streamlit as st
-
+st.balloons()
 # Create a list to store the job details
 jobs = []
 
@@ -32,7 +32,7 @@ page = st.sidebar.radio("Navigation", ["Add Job", "Contact Us", "About Us"])
 
 # Display content based on selected page
 if page == "About Us":
-    st.title("About Our Team")
+    st.title("About Out Team")
     st.write("its our last project of python in bano qabil 2.0")
     st.write("In these we try to provide a plattform to approach a job portal in just one click ")
     st.write("Our team is based on 3 people:")
