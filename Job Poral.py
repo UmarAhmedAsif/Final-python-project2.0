@@ -32,8 +32,8 @@ page = st.sidebar.radio("Navigation", ["Add Job", "Contact Us", "About Us"])
 
 # Display content based on selected page
 if page == "About Us":
-    st.title("About Out Team")
-    st.write("its our last project of python in bano qabil 2.0")
+    st.title("About Our Team")
+    st.write("Its our last project of python in bano qabil 2.0")
     st.write("In these we try to provide a plattform to approach a job portal in just one click ")
     st.write("Our team is based on 3 people:")
     st.write("Leader name;Anas Khan,2nd memeber :Ahmed ,3rd member:Rayyan")
@@ -42,6 +42,8 @@ elif page == "Contact Us":
     st.title("For Contact")
     st.write("Gmail : anaskh0469@gmail.com")
     st.write("contact us :03142551862")
+    st.write("Gmail : umarahmedasif@gmail.com")
+    st.write("contact us :03422951077")
     st.write("Feel free to get in touch with us!")
     # Add your Contact Us content here
 elif page == "Add Job":
