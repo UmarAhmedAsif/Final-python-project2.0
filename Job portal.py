@@ -1,5 +1,7 @@
 import streamlit as st
-
+def main()
+# Company logo
+    st.sidebar.image("bano qabil jpg", use_column_width=True)
 # Create a list to store the job details
 jobs = []
 
