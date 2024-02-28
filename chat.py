@@ -43,7 +43,7 @@ def main():
         import streamlit as st
 
 def main():
-    st.title("About Us")
+    st.button("About Us")
     
     st.write("""
     Welcome to our Streamlit app! This is where you can learn more about us.
