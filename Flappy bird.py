@@ -1,49 +1,80 @@
-import streamlit as st
-st.balloons()
-# Create a list to store the job details
-jobs = []
+import 'package:flutter/material.dart';
+import 'package:flame/game.dart';
+import 'package:flame/components.dart';
+import 'package:flame/flame.dart';
+import 'dart:ui';
 
-# Add Job page
-def add_job():
-    st.header("Bano Qabil job portal 2.0")
-    st.title("Al Khidmat")
-    st.header("Add Job")
-    job_title = st.text_input("Job Title")
-    job_location = st.text_input("Job Location")
-    job_description = st.text_area("Job Description")
-    if st.button("Submit"):
-        jobs.append({"title": job_title, "location": job_location, "description": job_description})
-        st.success("Job added successfully!")
+void main() {
+  runApp(GameWidget(game: FlappyBird()));
+}
 
-# Home page
-def home():
-    st.header("Availabe Jobs")
-    if len(jobs) == 0:
-        st.write("No jobs available yet.")
-    else:
-        for job in jobs:
-            st.write(f"Title: {job['title']}")
-            st.write(f"Location: {job['location']}")
-            st.write(f"Description: {job['description']}")
-            st.write("---")
+class FlappyBird extends FlameGame {
+  late Bird _bird;
+  late double screenHeight;
+  late double screenWidth;
+  late double birdHeight;
+  late double birdWidth;
+  
+  @override
+  Future<void> onLoad() async {
+    screenHeight = size.y;
+    screenWidth = size.x;
+    birdHeight = 50;
+    birdWidth = 50;
+    
+    // Load the bird
+    _bird = Bird(position: Vector2(screenWidth / 4, screenHeight / 2));
+    add(_bird);
+  }
 
-# Sidebar navigation
-page = st.sidebar.radio("Navigation", ["Add Job", "Contact Us", "About Us"])
+  @override
+  void update(double dt) {
+    super.update(dt);
+    _bird.update(dt);
+  }
 
-# Display content based on selected page
-if page == "About Us":
-    st.title("About Our Team")
-    st.write("its our last project of python in bano qabil 2.0")
-    st.write("In these we try to provide a plattform to approach a job portal in just one click ")
-    st.write("Our team is based on 3 people:")
-    st.write("Leader name;Anas Khan,2nd memeber :Ahmed ,3rd member:Rayyan")
-    # Add your About Us content here
-elif page == "Contact Us":
-    st.title("For Contact")
-    st.write("Gmail : anaskh0469@gmail.com")
-    st.write("contact us :03142551862")
-    st.write("Feel free to get in touch with us!")
-    # Add your Contact Us content here
-elif page == "Add Job":
-    add_job()
-    home()  # Display the updated job list on the Home page after adding a job
+  @override
+  void render(Canvas canvas) {
+    super.render(canvas);
+    _bird.render(canvas);
+  }
+}
+
+class Bird extends PositionComponent with HasGameRef {
+  double velocity = 0;
+  double gravity = 0.2;
+  double lift = -5;
+  
+  Bird({required Vector2 position}) {
+    this.position = position;
+  }
+
+  @override
+  void update(double dt) {
+    velocity += gravity;
+    position.y += velocity;
+
+    // Prevent the bird from falling below the ground
+    if (position.y > gameRef.size.y - 50) {
+      position.y = gameRef.size.y - 50;
+    }
+
+    // Prevent the bird from flying off the top
+    if (position.y < 0) {
+      position.y = 0;
+    }
+  }
+
+  @override
+  void onTap() {
+    velocity = lift;
+  }
+
+  @override
+  void render(Canvas canvas) {
+    final paint = Paint()..color = Colors.yellow;
+    canvas.drawRect(Rect.fromLTWH(position.x, position.y, 50, 50), paint);
+  }
+}
+flutter run
+
